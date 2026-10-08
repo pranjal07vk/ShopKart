@@ -4,6 +4,7 @@ import { useCart } from "../context/CartContext";
 
 function Navbar() {
   const navigate = useNavigate();
+  const { totalItemCount } = useCart();
 
   const handleLogout = async () => {
     try {

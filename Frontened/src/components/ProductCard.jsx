@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import { useCart } from "../context/CartContext";
 
 function ProductCard({ product }) {
+  const { addToCart } = useCart();
   const navigate = useNavigate();
 
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
+
+  const [addingToCart, setAddingToCart] = useState(false);
+  const [cartMessage, setCartMessage] = useState("");
 
   const handleAddToWishlist = async () => {
     if (saving) return;
@@ -31,6 +36,25 @@ function ProductCard({ product }) {
       }
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleAddToCart = async () => {
+    if (addingToCart) return;
+
+    try {
+      setAddingToCart(true);
+      setCartMessage("");
+
+      const result = await addToCart(product._id);
+
+      if (result.success) {
+        setCartMessage("Added to Cart");
+      } else {
+        setCartMessage(result.message);
+      }
+    } finally {
+      setAddingToCart(false);
     }
   };
 
@@ -62,14 +86,23 @@ function ProductCard({ product }) {
         </button>
 
         <button
+          onClick={handleAddToCart}
+          disabled={addingToCart || product.stock === 0}
+        >
+          {addingToCart ? "Adding..." : "Add to Cart"}
+        </button>
+
+        {cartMessage && <p>{cartMessage}</p>}
+
+        <button
           onClick={handleAddToWishlist}
           disabled={saving}
         >
           {saving
             ? "Saving..."
             : success
-            ? "♥ Added to Wishlist"
-            : "♡ Add to Wishlist"}
+              ? "♥ Added to Wishlist"
+              : "♡ Add to Wishlist"}
         </button>
 
         {message && <p>{message}</p>}

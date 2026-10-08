@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Customer from "../models/customer.model.js";
 import Product from "../models/product.model.js";
+console.log("CART PATH:", Customer.schema.path("cart"));
 
 export const addToCart = async (req, res) => {
     try {
@@ -92,10 +93,7 @@ export const addToCart = async (req, res) => {
 
 export const getCart = async (req, res) => {
     try {
-        const customer = await Customer.findById(req.user._id).populate({
-            path: "cart.product",
-            select: "name price image category stock",
-        });
+        const customer = await Customer.findById(req.user._id);
 
         if (!customer) {
             return res.status(401).json({
@@ -108,6 +106,11 @@ export const getCart = async (req, res) => {
             customer.cart = [];
             await customer.save();
         }
+
+        await customer.populate({
+            path: "cart.product",
+            select: "name price image category stock",
+        });
 
         return res.status(200).json({
             success: true,

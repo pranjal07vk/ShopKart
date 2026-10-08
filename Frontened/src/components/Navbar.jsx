@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import { useCart } from "../context/CartContext";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -28,6 +29,10 @@ function Navbar() {
 
       <button onClick={() => navigate("/wishlist")}>
         Wishlist
+      </button>
+
+      <button onClick={() => navigate("/cart")}>
+        Cart ({totalItemCount})
       </button>
 
       <button onClick={handleLogout}>

@@ -85,3 +85,29 @@ export const addToCart = async (req, res) => {
     });
   }
 };
+
+export const getCart = async (req, res) => {
+  try {
+    const customer = await Customer.findById(req.user._id).populate({
+      path: "cart.product",
+      select: "name price image category stock",
+    });
+
+    if (!customer) {
+      return res.status(401).json({
+        success: false,
+        message: "Customer not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      cart: customer.cart,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

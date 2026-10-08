@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import Navbar from "../components/Navbar";
+
 
 function Wishlist() {
   const navigate = useNavigate();
@@ -76,106 +78,110 @@ function Wishlist() {
   }
 
   return (
-    <div className="wishlist-page">
-      <div className="wishlist-header">
-        <div>
-          <h1>My Wishlist</h1>
-          <p>Your saved products, all in one place.</p>
-        </div>
+    <>
+      <Navbar />
 
-        <button
-          className="continue-shopping-button"
-          onClick={() => navigate("/products")}
-        >
-          Continue Shopping
-        </button>
-      </div>
-
-      {error && (
-        <div className="wishlist-error">
-          <p>{error}</p>
-        </div>
-      )}
-
-      {wishlist.length === 0 && !error && (
-        <div className="wishlist-empty">
-          <div className="wishlist-empty-icon">♡</div>
-
-          <h2>Your wishlist is empty ❤️</h2>
-
-          <p>
-            Start saving products you love.
-          </p>
+      <div className="wishlist-page">
+        <div className="wishlist-header">
+          <div>
+            <h1>My Wishlist</h1>
+            <p>Your saved products, all in one place.</p>
+          </div>
 
           <button
-            className="wishlist-primary-button"
+            className="continue-shopping-button"
             onClick={() => navigate("/products")}
           >
-            Browse Products
+            Continue Shopping
           </button>
         </div>
-      )}
 
-      {wishlist.length > 0 && (
-        <div className="wishlist-grid">
-          {wishlist.map((product) => (
-            <div className="wishlist-card" key={product._id}>
-              <div className="wishlist-image-container">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="wishlist-image"
-                />
-              </div>
+        {error && (
+          <div className="wishlist-error">
+            <p>{error}</p>
+          </div>
+        )}
 
-              <div className="wishlist-card-content">
-                <p className="wishlist-category">
-                  {product.category}
-                </p>
+        {wishlist.length === 0 && !error && (
+          <div className="wishlist-empty">
+            <div className="wishlist-empty-icon">♡</div>
 
-                <h2>{product.name}</h2>
+            <h2>Your wishlist is empty ❤️</h2>
 
-                <p className="wishlist-price">
-                  ₹{product.price}
-                </p>
+            <p>
+              Start saving products you love.
+            </p>
 
-                <p
-                  className={
-                    product.stock > 0
-                      ? "wishlist-stock"
-                      : "wishlist-out-of-stock"
-                  }
-                >
-                  {product.stock > 0
-                    ? `${product.stock} units left`
-                    : "Out of stock"}
-                </p>
+            <button
+              className="wishlist-primary-button"
+              onClick={() => navigate("/products")}
+            >
+              Browse Products
+            </button>
+          </div>
+        )}
 
-                <div className="wishlist-actions">
-                  <button
-                    className="wishlist-view-button"
-                    onClick={() =>
-                      navigate(`/products/${product._id}`)
+        {wishlist.length > 0 && (
+          <div className="wishlist-grid">
+            {wishlist.map((product) => (
+              <div className="wishlist-card" key={product._id}>
+                <div className="wishlist-image-container">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="wishlist-image"
+                  />
+                </div>
+
+                <div className="wishlist-card-content">
+                  <p className="wishlist-category">
+                    {product.category}
+                  </p>
+
+                  <h2>{product.name}</h2>
+
+                  <p className="wishlist-price">
+                    ₹{product.price}
+                  </p>
+
+                  <p
+                    className={
+                      product.stock > 0
+                        ? "wishlist-stock"
+                        : "wishlist-out-of-stock"
                     }
                   >
-                    View Details
-                  </button>
+                    {product.stock > 0
+                      ? `${product.stock} units left`
+                      : "Out of stock"}
+                  </p>
 
-                  <button
-                    className="wishlist-remove-button"
-                    onClick={() =>
-                      handleRemove(product._id)
-                    }
-                  >
-                    Remove
-                  </button>
+                  <div className="wishlist-actions">
+                    <button
+                      className="wishlist-view-button"
+                      onClick={() =>
+                        navigate(`/products/${product._id}`)
+                      }
+                    >
+                      View Details
+                    </button>
+
+                    <button
+                      className="wishlist-remove-button"
+                      onClick={() =>
+                        handleRemove(product._id)
+                      }
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

@@ -33,9 +33,8 @@ function Navbar() {
       </button>
 
       <button onClick={() => navigate("/cart")}>
-        Cart ({totalItemCount})
+        Cart 🛒 ({totalItemCount})
       </button>
-
       <button onClick={handleLogout}>
         Logout
       </button>

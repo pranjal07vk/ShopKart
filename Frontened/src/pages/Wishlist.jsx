@@ -21,7 +21,7 @@ function Wishlist() {
       if (error.response?.status === 401) {
         navigate("/login");
       } else {
-        setError("Something went wrong while loading your wishlist.");
+        setError("Unable to load wishlist.");
       }
     } finally {
       setLoading(false);
@@ -34,10 +34,14 @@ function Wishlist() {
 
   const handleRemove = async (productId) => {
     try {
+      setError("");
+
       await api.delete(`/wishlist/${productId}`);
 
       setWishlist((currentWishlist) =>
-        currentWishlist.filter((product) => product._id !== productId)
+        currentWishlist.filter(
+          (product) => product._id !== productId
+        )
       );
     } catch (error) {
       setError("Could not remove the product from wishlist.");
@@ -45,59 +49,128 @@ function Wishlist() {
   };
 
   if (loading) {
-    return <p>Loading wishlist...</p>;
+    return (
+      <div className="wishlist-state">
+        <div className="wishlist-state-icon">♡</div>
+        <h2>Loading your wishlist...</h2>
+        <p>Please wait while we fetch your saved products.</p>
+      </div>
+    );
+  }
+
+  if (error && wishlist.length === 0) {
+    return (
+      <div className="wishlist-state">
+        <div className="wishlist-state-icon">⚠</div>
+        <h2>Unable to load wishlist.</h2>
+        <p>{error}</p>
+
+        <button
+          className="wishlist-primary-button"
+          onClick={fetchWishlist}
+        >
+          Try Again
+        </button>
+      </div>
+    );
   }
 
   return (
     <div className="wishlist-page">
-      <h1>My Wishlist</h1>
-
-      {error && <p>{error}</p>}
-
-      {!error && wishlist.length === 0 && (
+      <div className="wishlist-header">
         <div>
-          <h2>Your wishlist is empty</h2>
-          <p>Add products to your wishlist to see them here.</p>
+          <h1>My Wishlist</h1>
+          <p>Your saved products, all in one place.</p>
+        </div>
 
-          <button onClick={() => navigate("/products")}>
+        <button
+          className="continue-shopping-button"
+          onClick={() => navigate("/products")}
+        >
+          Continue Shopping
+        </button>
+      </div>
+
+      {error && (
+        <div className="wishlist-error">
+          <p>{error}</p>
+        </div>
+      )}
+
+      {wishlist.length === 0 && !error && (
+        <div className="wishlist-empty">
+          <div className="wishlist-empty-icon">♡</div>
+
+          <h2>Your wishlist is empty ❤️</h2>
+
+          <p>
+            Start saving products you love.
+          </p>
+
+          <button
+            className="wishlist-primary-button"
+            onClick={() => navigate("/products")}
+          >
             Browse Products
           </button>
         </div>
       )}
 
-      {!error && wishlist.length > 0 && (
+      {wishlist.length > 0 && (
         <div className="wishlist-grid">
           {wishlist.map((product) => (
             <div className="wishlist-card" key={product._id}>
-              <img
-                src={product.image}
-                alt={product.name}
-                className="product-image"
-              />
+              <div className="wishlist-image-container">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="wishlist-image"
+                />
+              </div>
 
-              <h2>{product.name}</h2>
+              <div className="wishlist-card-content">
+                <p className="wishlist-category">
+                  {product.category}
+                </p>
 
-              <p>{product.category}</p>
+                <h2>{product.name}</h2>
 
-              <p>₹{product.price}</p>
+                <p className="wishlist-price">
+                  ₹{product.price}
+                </p>
 
-              <p>
-                {product.stock > 0
-                  ? `${product.stock} units left`
-                  : "Out of stock"}
-              </p>
+                <p
+                  className={
+                    product.stock > 0
+                      ? "wishlist-stock"
+                      : "wishlist-out-of-stock"
+                  }
+                >
+                  {product.stock > 0
+                    ? `${product.stock} units left`
+                    : "Out of stock"}
+                </p>
 
-              <button
-                onClick={() =>
-                  navigate(`/products/${product._id}`)
-                }
-              >
-                View Details
-              </button>
+                <div className="wishlist-actions">
+                  <button
+                    className="wishlist-view-button"
+                    onClick={() =>
+                      navigate(`/products/${product._id}`)
+                    }
+                  >
+                    View Details
+                  </button>
 
-              <button onClick={() => handleRemove(product._id)}>
-                Remove
-              </button>
+                  <button
+                    className="wishlist-remove-button"
+                    onClick={() =>
+                      handleRemove(product._id)
+                    }
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
             </div>
           ))}
         </div>

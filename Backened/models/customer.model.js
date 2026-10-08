@@ -29,12 +29,15 @@ const customerSchema = new mongoose.Schema(
       trim: true,
     },
 
-    wishlist: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
-      },
-    ],
+    wishlist: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+        },
+      ],
+      default: [],
+    },
   },
 
   { timestamps: true }

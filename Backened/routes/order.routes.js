@@ -13,4 +13,7 @@ const router = express.Router();
 router.post("/create-payment-order", authenticate, createPaymentOrder);
 router.post("/verify-payment", authenticate, verifyPayment);
 
+router.get("/", authenticate, getMyOrders);
+router.get("/:id", authenticate, getOrderById);
+
 export default router;

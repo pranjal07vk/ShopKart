@@ -1,7 +1,8 @@
+
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:1108",
+  baseURL: "https://shopkart-dbge.onrender.com",
   withCredentials: true,
 });
 

@@ -146,6 +146,10 @@ function Cart() {
 
             <h3>Subtotal: ₹{subtotal}</h3>
 
+            <button onClick={() => navigate("/checkout")}>
+              Proceed to Checkout
+            </button>
+
             <button onClick={() => navigate("/products")}>
               Continue Shopping
             </button>

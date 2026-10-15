@@ -2029,3 +2029,328 @@ a:focus-visible {
 }
 
 
+/* ================================
+   ORDER SUCCESS PAGE
+================================ */
+
+.order-success {
+  width: min(680px, calc(100% - 32px));
+  margin: 60px auto;
+  padding: 40px;
+  color: var(--text-main);
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+/* Main heading */
+
+.order-success h1 {
+  margin: 0 0 14px;
+  font-size: clamp(25px, 4vw, 32px);
+  font-weight: 750;
+  letter-spacing: -0.8px;
+}
+
+/* Confirmation message */
+
+.order-success > p {
+  margin: 0 0 28px;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* Order information */
+
+.order-success-details {
+  margin: 28px 0;
+  padding: 12px 20px;
+  text-align: left;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.order-success-details p {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin: 0;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.order-success-details p:last-child {
+  border-bottom: none;
+}
+
+.order-success-details strong {
+  flex-shrink: 0;
+  color: var(--text-main);
+  font-weight: 650;
+}
+
+.order-success-details p {
+  color: var(--text-muted);
+}
+
+/* Navigation buttons */
+
+.order-success-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.order-success-actions a,
+.order-success > a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 46px;
+  padding: 12px 20px;
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.order-success-actions a:hover,
+.order-success > a:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+/* Error message */
+
+.order-success [role="alert"] {
+  margin: 20px 0;
+  padding: 14px;
+  color: var(--danger);
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Mobile */
+
+@media (max-width: 520px) {
+  .order-success {
+    margin: 28px auto;
+    padding: 26px 18px;
+    border-radius: 15px;
+  }
+
+  .order-success-details {
+    padding: 8px 14px;
+  }
+
+  .order-success-details p {
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  .order-success-actions {
+    flex-direction: column;
+  }
+
+  .order-success-actions a {
+    width: 100%;
+  }
+}
+
+
+/* ================================
+   MY ORDERS PAGE
+================================ */
+
+.orders-page {
+  width: min(1100px, calc(100% - 40px));
+  margin: 40px auto 60px;
+  color: var(--text-main);
+}
+
+.orders-page > h1 {
+  margin: 0 0 28px;
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+
+/* Orders list */
+
+.orders-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+/* Individual order card */
+
+.order-card {
+  min-width: 0;
+  padding: 25px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.order-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.order-card h2 {
+  margin: 0 0 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.order-card p {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin: 0;
+  padding: 11px 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.order-card p strong {
+  flex-shrink: 0;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.order-card p {
+  overflow-wrap: anywhere;
+}
+
+/* View order button */
+
+.order-card > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 18px;
+  padding: 11px 16px;
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 650;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.order-card > a:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+/* Empty orders state */
+
+.orders-page > div:not(.orders-list) {
+  padding: 36px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.orders-page > div:not(.orders-list) p {
+  margin: 0 0 20px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.orders-page > div:not(.orders-list) a {
+  display: inline-flex;
+  justify-content: center;
+  padding: 12px 20px;
+  color: #fff;
+  background: var(--primary);
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+/* Loading and error messages */
+
+.orders-page > p,
+.orders-page > [role="alert"] {
+  padding: 20px;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  line-height: 1.7;
+}
+
+.orders-page > [role="alert"] {
+  color: var(--danger);
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+
+/* Responsive layout */
+
+@media (max-width: 760px) {
+  .orders-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .orders-page {
+    width: calc(100% - 24px);
+    margin: 26px auto 40px;
+  }
+
+  .orders-page > h1 {
+    margin-bottom: 20px;
+  }
+
+  .order-card {
+    padding: 20px 16px;
+  }
+
+  .order-card p {
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  .orders-page > div:not(.orders-list) {
+    padding: 26px 18px;
+  }
+}
+
+

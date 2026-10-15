@@ -1,3 +1,4 @@
+
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { useCart } from "../context/CartContext";
@@ -9,7 +10,6 @@ function Navbar() {
   const handleLogout = async () => {
     try {
       await api.post("/customers/logout");
-
       navigate("/login");
     } catch (error) {
       console.log("Logout failed");
@@ -35,6 +35,11 @@ function Navbar() {
       <button onClick={() => navigate("/cart")}>
         Cart 🛒 ({totalItemCount})
       </button>
+
+      <button onClick={() => navigate("/orders")}>
+        My Orders
+      </button>
+
       <button onClick={handleLogout}>
         Logout
       </button>
